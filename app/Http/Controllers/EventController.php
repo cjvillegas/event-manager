@@ -71,7 +71,8 @@ class EventController extends Controller
             \DB::raw('DATE_FORMAT(CONVERT_TZ(event_start, "+00:00", "' . date('P') . '"), "%Y-%m-%d") AS event_start'),
             \DB::raw('DATE_FORMAT(CONVERT_TZ(event_end, "+00:00", "' . date('P') . '"), "%Y-%m-%d") AS event_end'),
             \DB::raw('DATE_FORMAT(CONVERT_TZ(created_at, "+00:00", "' . date('P') . '"), "%Y-%m-%d") AS created_at')
-        );
+        )
+        ->where(['user_id' => auth()->user()->id]);
 
         if ($daterange && is_array($daterange)) {
             $dates = ['start' => $daterange[0], 'end' => $daterange[1]];

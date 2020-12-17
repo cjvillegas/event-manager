@@ -36,7 +36,7 @@ class Event extends Model
     public function validate()
     {
         $validator = Validator::make($this->attributes, [
-            'user_id' => 'nullable|integer',
+            'user_id' => 'required|integer',
             'event_name' => 'required|string',
             'event_start' => 'required|date',
             'event_end' => 'required|date',
@@ -71,13 +71,13 @@ class Event extends Model
         // $columnEnd = $this->getTable() . '.event_end';
 
         $query->whereRaw(
-            '"' . $start . '" BETWEEN ' . $columnStart . ' AND ' . $columnEnd . '
+            '("' . $start . '" BETWEEN ' . $columnStart . ' AND ' . $columnEnd . '
             OR
             "' . $end . '" BETWEEN ' . $columnStart . ' AND ' . $columnEnd . '
             OR
             ' . $columnStart . ' BETWEEN "' . $start . '" AND "' . $end . '"
             OR
-            ' . $columnEnd . ' BETWEEN "' . $start . '" AND "' . $end . '"'
+            ' . $columnEnd . ' BETWEEN "' . $start . '" AND "' . $end . '")'
         );
     }
 }
