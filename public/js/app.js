@@ -3879,7 +3879,14 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   created: function created() {
+    var _this = this;
+
     this.fetchEvents();
+    this.$ED.listen('EVENT_SAVED_SUCCESSFULLY', function (form) {
+      _this.filters.daterange = [form.event_start, form.event_end];
+
+      _this.fetchEvents();
+    });
   },
   computed: {
     computedCalendar: function computedCalendar() {
@@ -4122,7 +4129,7 @@ __webpack_require__.r(__webpack_exports__);
                 message: 'You have successfully saved an event.'
               });
 
-              _this3.$ED.fire('EVENT_SAVED_SUCCESSFULLY');
+              _this3.$ED.fire('EVENT_SAVED_SUCCESSFULLY', _this3.eventForm);
 
               _this3.resetForm();
             }

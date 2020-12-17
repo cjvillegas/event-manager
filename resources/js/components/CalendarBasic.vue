@@ -89,6 +89,15 @@
 		},
 		created() {
 			this.fetchEvents()
+
+			this.$ED.listen('EVENT_SAVED_SUCCESSFULLY', form => {
+				this.filters.daterange = [
+					form.event_start,
+					form.event_end
+				]
+				
+				this.fetchEvents()
+			})
 		},
 		computed: {
 			computedCalendar() {

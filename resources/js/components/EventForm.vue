@@ -158,7 +158,7 @@
 						          	message: 'You have successfully saved an event.'
 						        })
 
-						        this.$ED.fire('EVENT_SAVED_SUCCESSFULLY')
+						        this.$ED.fire('EVENT_SAVED_SUCCESSFULLY', this.eventForm)
 
 						        this.resetForm()
 							}

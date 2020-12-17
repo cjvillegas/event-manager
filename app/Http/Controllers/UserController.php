@@ -7,11 +7,22 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+
 	/**
 	 * Navigagte to the login form
 	 */
     public function showLogin()
     {
+
     	return view('auth.login');
     }
 
@@ -46,6 +57,9 @@ class UserController extends Controller
             : redirect('/');
     }
 
+    /**
+     * Logout user
+     */
     private function doLogout(Request $request)
     {
         Auth::logout();;
@@ -55,6 +69,10 @@ class UserController extends Controller
         $request->session()->regenerateToken();
     }
 
+    /**
+     * Override default column to validate. 
+     * This will indicate to use the username column instead of email. 
+     */
     public function username()
 	{
 	    return 'username';
